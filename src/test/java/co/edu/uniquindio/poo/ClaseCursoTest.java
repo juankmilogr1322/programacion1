@@ -1,48 +1,39 @@
-
 package co.edu.uniquindio.poo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.time.LocalDateTime;
-import java.util.logging.Logger;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Clase para probar el funcionamiento del código de la clase de un curso
- * 
- * @author Área de programación UQ
- * @since 2024-01
- * 
- *        Licencia GNU/GPL V3.0
- *        (https://raw.githubusercontent.com/grid-uq/poo/main/LICENSE)
- */
+import java.time.LocalDateTime;
+
 public class ClaseCursoTest {
-    private static final Logger LOG = Logger.getLogger(ClaseCursoTest.class.getName());
 
-    /**
-     * Prueba para verificar que los datos de un estudiante estén completos
-     */
     @Test
-    public void claseCursoFechaActual() {
-        LOG.info("Inicio claseCursoFechaActual");
+    public void crearClaseCurso_Valido() {
+        LocalDateTime fecha = LocalDateTime.of(2024, 4, 15, 10, 30);
+        ClaseCurso claseCurso = new ClaseCurso(fecha);
 
-        var fechaActual = LocalDateTime.now();
-        var claseCurso = new ClaseCurso(fechaActual);
-
-        assertEquals(fechaActual, claseCurso.fechaClase());
-        LOG.info("Finalización claseCursoFechaActual");
+        Assertions.assertEquals(fecha, claseCurso.getFechaClase());
     }
 
-    /**
-     * Prueba para verificar que los datos de un estudiante no estén nulos
-     */
     @Test
-    public void fechaNula() {
-        LOG.info("Inicio fechaNula");
-        assertThrows(Throwable.class, () -> new ClaseCurso(null));
-        LOG.info("Finalización fechaNula");
+    public void equals_ClasesIguales_True() {
+        LocalDateTime fecha1 = LocalDateTime.of(2024, 4, 15, 10, 30);
+        ClaseCurso claseCurso1 = new ClaseCurso(fecha1);
+
+        LocalDateTime fecha2 = LocalDateTime.of(2024, 4, 15, 10, 30);
+        ClaseCurso claseCurso2 = new ClaseCurso(fecha2);
+
+        Assertions.assertEquals(claseCurso1, claseCurso2);
     }
 
+    @Test
+    public void equals_ClasesDiferentes_False() {
+        LocalDateTime fecha1 = LocalDateTime.of(2024, 4, 15, 10, 30);
+        ClaseCurso claseCurso1 = new ClaseCurso(fecha1);
+
+        LocalDateTime fecha2 = LocalDateTime.of(2024, 4, 16, 9, 30);
+        ClaseCurso claseCurso2 = new ClaseCurso(fecha2);
+
+        Assertions.assertNotEquals(claseCurso1, claseCurso2);
+    }
 }

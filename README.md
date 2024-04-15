@@ -1,4 +1,4 @@
-# demo
+# problema4
 
 Descripciín basisca de su Proyecto de POO ...
 
@@ -37,5 +37,5 @@ Para generar el jar puede usar el comando:
 y para ejecutar el jar
 
 ```shell
- java -jar target/demo-1.0.jar
+ java -jar target/problema4-1.0.jar
 ```

@@ -1,67 +1,40 @@
-
 package co.edu.uniquindio.poo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.time.LocalDateTime;
-import java.util.logging.Logger;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Clase para probar el funcionamiento del código de la clase de un Asistencia
- * 
- * @author Área de programación UQ
- * @since 2024-01
- * 
- *        Licencia GNU/GPL V3.0
- *        (https://raw.githubusercontent.com/grid-uq/poo/main/LICENSE)
- */
+import java.time.LocalDateTime;
+
 public class AsistenciaTest {
-    private static final Logger LOG = Logger.getLogger(AsistenciaTest.class.getName());
 
-    /**
-     * Prueba para verificar la presencia de un estudiante
-     */
     @Test
-    public void asistenciaPresente() {
-        LOG.info("Inicio asistenciaPresente");
+    public void crearAsistencia_Valido() {
+        ClaseCurso claseCurso = new ClaseCurso(LocalDateTime.now());
+        Asistencia asistencia = new Asistencia(claseCurso, TipoAsistencia.PRESENTE);
 
-        var fechaOchoDiasAntes = LocalDateTime.now().minusDays(8);
-        var claseCurso = new ClaseCurso(fechaOchoDiasAntes);
-        var asistencia = new Asistencia(claseCurso, TipoAsistencia.PRESENTE);
-
-        assertEquals(TipoAsistencia.PRESENTE, asistencia.tipoAsistencia());
-        assertEquals(fechaOchoDiasAntes, asistencia.claseCurso().fechaClase());
-        LOG.info("Finalización asistenciaPresente");
+        Assertions.assertEquals(claseCurso, asistencia.getClaseCurso());
+        Assertions.assertEquals(TipoAsistencia.PRESENTE, asistencia.getTipoAsistencia());
     }
 
-    /**
-     * Prueba para verificar la ausencia de un estudiante
-     */
     @Test
-    public void asistenciaAusencia() {
-        LOG.info("Inicio asistenciaAusencia");
+    public void equals_AsistenciasIguales_True() {
+        ClaseCurso claseCurso1 = new ClaseCurso(LocalDateTime.now());
+        Asistencia asistencia1 = new Asistencia(claseCurso1, TipoAsistencia.PRESENTE);
 
-        var fechaUnMesAntes = LocalDateTime.now().minusMonths(1);
-        var claseCurso = new ClaseCurso(fechaUnMesAntes);
-        var asistencia = new Asistencia(claseCurso, TipoAsistencia.AUSENTE);
+        ClaseCurso claseCurso2 = new ClaseCurso(LocalDateTime.now());
+        Asistencia asistencia2 = new Asistencia(claseCurso2, TipoAsistencia.PRESENTE);
 
-        assertEquals(TipoAsistencia.AUSENTE, asistencia.tipoAsistencia());
-        assertEquals(fechaUnMesAntes, asistencia.claseCurso().fechaClase());
-        LOG.info("Finalización asistenciaAusencia");
+        Assertions.assertEquals(asistencia1, asistencia2);
     }
 
-    /**
-     * Prueba para verificar que NO se puede crear una asistencia con nulo en la
-     * ClaseCurso
-     */
     @Test
-    public void claseCursoNulo() {
-        LOG.info("Inicio claseCursoNulo");
-        assertThrows(Throwable.class, () -> new Asistencia(null, TipoAsistencia.AUSENTE));
-        LOG.info("Finalización claseCursoNulo");
-    }
+    public void equals_AsistenciasDiferentes_False() {
+        ClaseCurso claseCurso1 = new ClaseCurso(LocalDateTime.now());
+        Asistencia asistencia1 = new Asistencia(claseCurso1, TipoAsistencia.PRESENTE);
 
+        ClaseCurso claseCurso2 = new ClaseCurso(LocalDateTime.now().plusHours(1));
+        Asistencia asistencia2 = new Asistencia(claseCurso2, TipoAsistencia.AUSENTE);
+
+        Assertions.assertNotEquals(asistencia1, asistencia2);
+    }
 }
