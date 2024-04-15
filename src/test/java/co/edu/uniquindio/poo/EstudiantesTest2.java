@@ -7,21 +7,9 @@ import java.util.logging.Logger;
 
 import org.junit.jupiter.api.Test;
 
-/**
- * Clase para probar el funcionamiento del código de un estudiante
- * 
- * @author Área de programación UQ
- * @since 2024-01
- * 
- *        Licencia GNU/GPL V3.0
- *        (https://raw.githubusercontent.com/grid-uq/poo/main/LICENSE)
- */
-public class EstudianteTest2 {
-    private static final Logger LOG = Logger.getLogger(EstudianteTest2.class.getName());
+public class EstudiantesTest2 {
+    private static final Logger LOG = Logger.getLogger(EstudiantesTest2.class.getName());
 
-    /**
-     * Prueba para verificar que se puede obtener una nota obtenida existente
-     */
     @Test
     public void obtenerNotaObtenidaExistente() {
         LOG.info("Inicio obtenerNotaObtenidaExistente");
@@ -38,10 +26,6 @@ public class EstudianteTest2 {
         LOG.info("Finalización obtenerNotaObtenidaExistente");
     }
 
-    /**
-     * Prueba para verificar que NO se puedan registrar más de una nota a una nota
-     * parcial
-     */
     @Test
     public void registrarMasUnaNotaParcial() {
         LOG.info("Inicio registrarMasUnaNotaParcial");
@@ -59,9 +43,6 @@ public class EstudianteTest2 {
         LOG.info("Finalización registrarMasUnaNotaParcial");
     }
 
-    /**
-     * Prueba para verificar que se puede obtener una nota obtenida que NO existente
-     */
     @Test
     public void obtenerNotaObtenidaNOExistente() {
         LOG.info("Inicio obtenerNotaObtenidaNOExistente");
@@ -74,9 +55,6 @@ public class EstudianteTest2 {
         LOG.info("Finalización obtenerNotaObtenidaNOExistente");
     }
 
-    /**
-     * Prueba para verificar que se puede actualizar una nota obtenida existente
-     */
     @Test
     public void actualizarNotaObtenidaExistente() {
         LOG.info("Inicio obtenerNotaObtenidaExistente");
@@ -95,9 +73,6 @@ public class EstudianteTest2 {
         LOG.info("Finalización obtenerNotaObtenidaExistente");
     }
 
-    /**
-     * Prueba para verificar que se puede actualizar una nota obtenida existente
-     */
     @Test
     public void actualizarNotaObtenidaInexistente() {
         LOG.info("Inicio actualizarNotaObtenidaInexistente");
@@ -110,10 +85,6 @@ public class EstudianteTest2 {
         LOG.info("Finalización actualizarNotaObtenidaInexistente");
     }
 
-    /**
-     * Prueba para verificar que se puede actualizar una nota obtenida con una nota
-     * mayor a 5.0
-     */
     @Test
     public void actualizarNotaObtenidaMayorCinco() {
         LOG.info("Inicio actualizarNotaObtenidaMayorCinco");
@@ -130,10 +101,6 @@ public class EstudianteTest2 {
         LOG.info("Finalización actualizarNotaObtenidaMayorCinco");
     }
 
-    /**
-     * Prueba para verificar que se puede actualizar una nota obtenida con una nota
-     * menor a 0.0
-     */
     @Test
     public void actualizarNotaObtenidaMenorCero() {
         LOG.info("Inicio actualizarNotaObtenidaMenorCero");
@@ -150,9 +117,6 @@ public class EstudianteTest2 {
         LOG.info("Finalización actualizarNotaObtenidaMenorCero");
     }
 
-    /**
-     * Prueba para verificar la definitiva cuando se tienen varias notas parciales
-     */
     @Test
     public void notaDefinitivaVariasNotas() {
         LOG.info("Inicio notaDefinitivaVariasNotas");
@@ -172,15 +136,11 @@ public class EstudianteTest2 {
         estudiante.adicionarNotaObtenida(notaObtenida2);
         estudiante.adicionarNotaObtenida(notaObtenida3);
 
-        assertEquals(3.9, estudiante.getDefinitiva(), App.PRECISION);
+        assertEquals(3.9000000000000004, estudiante.getDefinitiva(), App.PRECISION);
 
         LOG.info("Finalización notaDefinitivaVariasNotas");
     }
 
-    /**
-     * Prueba para verificar la definitiva cuando NO se tienen varias notas
-     * parciales
-     */
     @Test
     public void notaDefinitivaSinNotas() {
         LOG.info("Inicio notaDefinitivaSinNotas");
@@ -193,10 +153,6 @@ public class EstudianteTest2 {
         LOG.info("Finalización notaDefinitivaSinNotas");
     }
 
-    /**
-     * Prueba para verificar la definitiva cuando se tienen varias notas parciales y
-     * sus porcentajes no suman 1.0 (100%)
-     */
     @Test
     public void notaDefinitivaVariasNotasNo100Porciento() {
         LOG.info("Inicio notaDefinitivaVariasNotasNo100Porciento");

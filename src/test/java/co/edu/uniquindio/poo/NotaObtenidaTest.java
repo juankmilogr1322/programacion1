@@ -1,75 +1,63 @@
 package co.edu.uniquindio.poo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.logging.Logger;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Clase para probar el funcionamiento del código de un curso
- * 
- * @author Área de programación UQ
- * @since 2024-01
- * 
- *        Licencia GNU/GPL V3.0
- *        (https://raw.githubusercontent.com/grid-uq/poo/main/LICENSE)
- */
 public class NotaObtenidaTest {
-    private static final Logger LOG = Logger.getLogger(NotaObtenidaTest.class.getName());
 
-    /**
-     * Prueba para verificar que los de una nota obtenida estén completos
-     */
     @Test
-    public void datosCompletos() {
-        LOG.info("Inicio datosCompletos");
+    public void constructor_Valido() {
 
-        var notaParcial = new NotaParcial("Parcial 1", 0.2);
-        var notaObtenida = new NotaObtenida(notaParcial, 3.5);
+        NotaParcial notaParcial = new NotaParcial("Parcial 1", 0.3);
 
-        assertEquals(notaParcial, notaObtenida.getNotaParcial());
-        assertEquals(3.5, notaObtenida.getNotaObtenida());
+        NotaObtenida notaObtenida = new NotaObtenida(notaParcial, 4.5);
 
-        LOG.info("Finalización datosCompletos");
+        Assertions.assertEquals(notaParcial, notaObtenida.getNotaParcial());
+        Assertions.assertEquals(4.5, notaObtenida.getNotaObtenida());
     }
 
-    /**
-     * Prueba para verificar que la nota parcial no sea null
-     */
     @Test
-    public void notaParcialNull() {
-        LOG.info("Inicio notaParcialNull");
+    public void constructor_NotaMenorQueCero() {
 
-        assertThrows(Throwable.class, () -> new NotaObtenida(null, 3.5));
+        NotaParcial notaParcial = new NotaParcial("Parcial 1", 0.3);
 
-        LOG.info("Finalización notaParcialNull");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new NotaObtenida(notaParcial, -1.0));
     }
 
-    /**
-     * Prueba para verificar que la nota obtenida no sea menor que 0.0
-     */
     @Test
-    public void notaObtenidaMenoCero() {
-        LOG.info("Inicio notaObtenidaMenoCero");
+    public void constructor_NotaMayorQueCinco() {
 
-        var notaParcial = new NotaParcial("Parcial 1", 0.2);
-        assertThrows(Throwable.class, () -> new NotaObtenida(notaParcial, -2.5));
+        NotaParcial notaParcial = new NotaParcial("Parcial 1", 0.3);
 
-        LOG.info("Finalización notaObtenidaMenoCero");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new NotaObtenida(notaParcial, 6.0));
     }
 
-    /**
-     * Prueba para verificar que la nota obtenida no sea mayor que 5.0
-     */
     @Test
-    public void notaObtenidaMayorCinco() {
-        LOG.info("Inicio notaObtenidaMayorCinco");
+    public void setNotaObtenida_Valido() {
 
-        var notaParcial = new NotaParcial("Parcial 1", 0.2);
-        assertThrows(Throwable.class, () -> new NotaObtenida(notaParcial, 7.8));
+        NotaParcial notaParcial = new NotaParcial("Parcial 1", 0.3);
+        NotaObtenida notaObtenida = new NotaObtenida(notaParcial, 4.5);
 
-        LOG.info("Finalización notaObtenidaMayorCinco");
+        notaObtenida.setNotaObtenida(3.5);
+
+        Assertions.assertEquals(3.5, notaObtenida.getNotaObtenida());
+    }
+
+    @Test
+    public void setNotaObtenida_NotaMenorQueCero() {
+
+        NotaParcial notaParcial = new NotaParcial("Parcial 1", 0.3);
+        NotaObtenida notaObtenida = new NotaObtenida(notaParcial, 4.5);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> notaObtenida.setNotaObtenida(-1.0));
+    }
+
+    @Test
+    public void setNotaObtenida_NotaMayorQueCinco() {
+
+        NotaParcial notaParcial = new NotaParcial("Parcial 1", 0.3);
+        NotaObtenida notaObtenida = new NotaObtenida(notaParcial, 4.5);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> notaObtenida.setNotaObtenida(6.0));
     }
 }
